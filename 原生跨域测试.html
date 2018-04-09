@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>js跨域拿数据</title>
+</head>
+<body>
+   <ul id="sum">
+       
+   </ul>
+<script>
+    //callback=cd就是把cd这个参数传给后台
+    //callback这个参数传给后台
+    //内容是cd
+    //后台可以根据这个生成cd(json)这个脚本
+
+    var sum = document.getElementById("sum");
+
+    var url = "https://api.douban.com/v2/book/search?q=python&fields=id,title&callback=cd";
+
+    let _script = document.createElement("script");
+
+    _script.src = url;
+
+
+    //document.body.insertBefore(_script,document.body.firstChild);
+
+
+    document.getElementsByTagName("head")[0].appendChild(_script)
+
+
+    function cd(data){
+        console.log(data.books)
+        for(var i=0;i<data.books.length;i++){
+            var lidom = document.createElement("li");
+            lidom.innerHTML = data.books[i].title;
+            sum.appendChild(lidom)
+        }
+    }
+
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+<style>
+	*{
+		padding: 0;
+		margin: 0;
+		list-style: none;
+	}
+	#box{
+		width: 1200px;
+		height: 500px;
+		border: 1px solid;
+		margin: 50px auto;	
+	}
+	#box li{
+		display: inline-block;
+		/*border: px solid;*/
+		height: 150px;
+		width: 300px;
+	}
+	#box img{
+		display: inline-block;
+		width: 100px;
+		height: 100%;
+		float: left;
+	}
+	.li-text h4{
+		height: 50px;
+		font-size: 15px;
+	}
+	.li-text p{
+		margin: 10px 0;
+		font-size: 12px;
+	}
+	.li-text{
+		width: 150px;
+		height: 100%;
+		float: left;
+		background: #ff6700;
+		/*text-align: center;*/
+	}
+</style>	
+</head>
+<body>
+	<input type="button" value="点击获取豆瓣API">
+	<ol id="box">
+		<!-- <li>
+			<img src="1.jpg" alt="">
+			<div class="li-text">
+				<h4>标题</h4>
+				<p>类型</p>
+				<p>日期：</p>
+			</div>
+		</li> -->
+	</ol>
+
+
+<script src="js/jquery-3.2.1.min.js"></script>
+<script>
+	$(function(){
+		//获取单条数据
+		// $('input[type=button]').bind('click',function(){
+		// 	$.ajax({
+		// 		type:"get",
+		// 		dataType:"jsonp",
+		// 		url:"https://api.douban.com/v2/book/17604305?fields=id,title,url",
+		// 		success:function(data,status,xhr){
+		// 			console.log(data.title)
+		// 		}
+
+		// 	})
+		// })
+
+
+
+		//获取多条数据
+		// $("input[type=button]").bind('click',function(){
+		// 	$.ajax({
+		// 		type:"get",
+		// 		dataType:"jsonp",
+		// 		url:'https://api.douban.com/v2/loc/list',
+		// 		success:function(data,status,xhr){
+		// 			console.log(data)
+				// 	for(var i=0;i<20;i++){ //需要循环里面的数据
+				// 		var a = data.locs[i]; // 循环locs里面的所有数据
+				// 		console.log(a.name); // 拿到locs的name 或者其他
+				// 		$("#box").append("<li>"+a.name+"、"+a.uid+"</ul>")
+				// 		console.log(a.uid);
+				// 	}
+		// 		},
+		// 		error:function(){
+		// 			$("#box").append("获取失败")	
+		// 		}
+		// 	})
+		// })
+
+
+		$("input[type=button]").bind('click',function(){
+			$.ajax({
+				type:"get",
+				dataType:"jsonp",
+				url:'https://api.douban.com/v2/movie/in_theaters',
+				success:function(data,status,xhr){
+					console.log(data);
+        			for(var i=0;i<15;i++){
+        				var obj = data.subjects[i];
+        				console.log(obj)
+        				$("#box").append("<li>"+
+        					"<img src="+obj.images.medium+" />"+
+        					'<div class="li-text">'+
+        					"<h4>"+obj.title+"</h4>"+
+        					"<p>类型:"+obj.genres+"</p>"+
+        					"<p>日期:"+obj.year+"</p>"+
+        					"</li>")	
+        			}
+				},
+				error:function(){
+					$("#box").append("获取失败")	
+				}
+			})
+		})
+
+
+
+
+
+		// $("input[type=button]").bind('click',function(){
+		// 	$.ajax({
+		// 		type:"get",
+		// 		dataType:"jsonp",
+		// 		url:'https://api.douban.com/v2/loc/list',
+		// 		success:function(data,status,xhr){
+		// 			console.log(data)
+		// 		},
+		// 		error:function(){
+		// 			$("#box").append("获取失败")	
+		// 		}
+		// 	})
+		// })	
+
+
+	})
+
+</script>
+</body>
+</html>
